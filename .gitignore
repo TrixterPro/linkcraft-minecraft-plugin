@@ -1,0 +1,25 @@
+# Maven build output
+/target/
+
+# Logs
+*.log
+hs_err_pid*
+replay_pid*
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local tool/config folders
+.claude/
+
+# Local Documentation
+/Documentations

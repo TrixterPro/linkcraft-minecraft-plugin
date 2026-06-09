@@ -1,0 +1,33 @@
+name: LinkCraft
+main: com.linkcraft.minecraft.LinkCraftPlugin
+version: 1.0.0
+api-version: 1.20
+author: LinkCraft Team
+description: Discord account linking with Redis verification codes and MySQL storage.
+website: https://github.com/linkcraft/linkcraft-minecraft
+commands:
+  link:
+    description: Link your Minecraft account to your Discord account using a verification code.
+    usage: /link <code>
+    permission: linkcraft.link
+    permission-message: "&cYou don't have permission to use this command."
+  unlink:
+    description: Unlink your Minecraft account from your Discord account.
+    usage: /unlink
+    permission: linkcraft.unlink
+    permission-message: "&cYou don't have permission to use this command."
+  linkcraft:
+    description: LinkCraft administrative commands.
+    usage: /linkcraft reload
+    permission: linkcraft.admin
+    permission-message: "&cYou don't have permission to use this command."
+permissions:
+  linkcraft.link:
+    description: Allows using the /link command
+    default: true
+  linkcraft.unlink:
+    description: Allows using the /unlink command
+    default: true
+  linkcraft.admin:
+    description: Allows using LinkCraft administrative commands
+    default: op

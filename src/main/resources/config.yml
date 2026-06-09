@@ -1,0 +1,80 @@
+# LinkCraft Minecraft Plugin Configuration
+# ==========================================
+# This plugin provides Discord account linking functionality.
+# The Discord bot (separate project) will interact with Redis to generate codes.
+
+# Redis connection settings
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  password: ""
+  database: 0
+  connection-timeout-ms: 2000
+  pool-size: 8
+  max-idle: 8
+  min-idle: 0
+
+  # Redis key names. Keep the code prefix identical to the Discord bot.
+  keys:
+    code-prefix: "linkcraft:code:"
+    uuid-cache-prefix: "linkcraft:cache:uuid:"
+    username-cache-prefix: "linkcraft:cache:username:"
+
+  # Caches Minecraft UUID <-> username after a successful link.
+  identity-cache:
+    enabled: true
+    # Set to 0 for no expiry.
+    ttl-seconds: 86400
+
+# MySQL stores permanent Minecraft-to-Discord links
+mysql:
+  host: "127.0.0.1"
+  port: 3306
+  database: "linkcraft"
+  username: "root"
+  password: ""
+  use-ssl: false
+  allow-public-key-retrieval: true
+  connection-timeout-ms: 5000
+  socket-timeout-ms: 5000
+
+# Command cooldowns are held in memory and reset when the server restarts.
+cooldowns:
+  enabled: true
+  link-seconds: 30
+  unlink-seconds: 30
+  # true: cooldown begins when a valid command is accepted.
+  # false: cooldown begins only after a successful link/unlink.
+  apply-on-attempt: true
+
+# Messages
+messages:
+  only-players: "&cThis command can only be used by players!"
+  # Message displayed when a player uses an invalid code
+  invalid-code: "&cInvalid or expired code. Please request a new one from Discord."
+  # Message displayed when code format is invalid
+  invalid-format: "&cInvalid code format. Code must be 6 alphanumeric characters."
+  # Message displayed when account is already linked
+  already-linked: "&eYour account is already linked. Use /unlink before linking again."
+  # Message displayed when the Discord account belongs to another Minecraft account
+  discord-already-linked: "&eThat Discord account is already linked to a Minecraft account."
+  # Success message
+  success: "&aSuccessfully linked your account to Discord!"
+  # Usage message
+  usage: "&eUsage: /link <code>"
+  # Displayed while Redis checks the code
+  processing: "&eChecking your verification code..."
+  # Displayed when Redis or MySQL cannot be reached
+  service-unavailable: "&cThe account service is temporarily unavailable. Please try again later."
+  # Unlink command messages
+  unlink-success: "&aSuccessfully unlinked your Discord account!"
+  not-linked: "&eYour account is not linked."
+  unlink-usage: "&eUsage: /unlink"
+  unlink-processing: "&eUnlinking your account..."
+  link-cooldown: "&cPlease wait %seconds% seconds before using /link again."
+  unlink-cooldown: "&cPlease wait %seconds% seconds before using /unlink again."
+  admin-usage: "&eUsage: /linkcraft reload"
+  reload-started: "&eReloading LinkCraft configuration..."
+  reload-success: "&aLinkCraft configuration reloaded successfully."
+  reload-failed: "&cReload failed. Redis: %redis%, MySQL: %mysql%. Previous connections are still active."
+  reload-config-error: "&cCould not read config.yml. Check the server log for details."
